@@ -1,54 +1,48 @@
-<!DOCTYPE html>
-<html ng-app="pokemonGo">
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    
-
-    <!-- Bootstrap latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
-    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-	</head>
-  <body>
-     
-    <div class="container">
-      <div class="header clearfix">
-        <h3 class="text-muted">Cargar Pokémon</h3>
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="PokemonController as pokemonCtrl">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Cargar Pokémon</h4>
       </div>
+      <div class="modal-body">
 
-      <form ng-controller="PokemonController as pokemonCtrl">
-        <div class="form-group">
-          <label>Nombre</label>
-          <input type="text" class="form-control" placeholder="Nombre" ng-model="name">
-        </div>
+        <form name="createForm">
+          <div class="form-group">
+            <label>Nombre (requerido)</label>
+            <input type="text" class="form-control" placeholder="Nombre" ng-model="name" required>
+          </div>
 
-        <!--<div class="form-group">
-          <label for="exampleInputFile">Imagen</label>
-          <input type="file" id="exampleInputFile">
-        </div>-->
-        <button type="submit" class="btn btn-primary" ng-click="pokemonCtrl.create()">Crear</button>
-      </form>
+          <div class="form-group">
+            <label for="imgInputFile">Imagen</label>
+            <input type="file" id="imgInputFile" file-model="image">
+          </div>
+
+          <div class="form-group">
+            <label for="traitSelect">Habilidad</label>
+            <select id="traitSelect" class="form-control" ng-model="trait">
+              <option ng-repeat="t in pokemonCtrl.traits" value="{[{t}]}">{[{t}]}</option>
+            </select>
+          </div>
+
+          <div class="alert alert-success" role="alert" ng-show="pokemonCtrl.msg == 1">
+            Pokemon guardado correctamente.
+          </div>
+          <div class="alert alert-danger" role="alert" ng-show="pokemonCtrl.msg == 2">
+            Ha ocurrido un error.
+          </div>          
+          <div class="alert alert-danger" role="alert" ng-show="pokemonCtrl.msg == 3">
+            Debe ingresar el nombre.
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Volver al mapa</button>
+        <button type="button" class="btn btn-success" ng-click="pokemonCtrl.create()">Guardar</button>
+      </div>
     </div>
+  </div>
+</div>
 
 
-    <!-- GMaps -->
-    <script type="text/javascript"
-        src="http://maps.googleapis.com/maps/api/js?sensor=TRUE&key=AIzaSyCVwaFyisEtteDm3LrIYBfVJdrTS0RQqyc">
-    </script> 
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>  
-
-    {!! Html::script('js/app.js') !!}
-    {!! Html::script('js/map.ctrl.js') !!}
-    {!! Html::script('js/map.srv.js') !!}
-    {!! Html::script('js/pokemon.ctrl.js') !!}
-
-    <!-- Bootstrap -->
-    <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
-    </script>    
-
-  </body>
-</html>

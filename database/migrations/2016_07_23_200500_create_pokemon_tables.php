@@ -16,6 +16,9 @@ class CreatePokemonTables extends Migration
             $table->increments('id');
             $table->string('name');
             $table->binary('image')->nullable();
+            $table->string('trait')->nullable();
+            $table->double('lat', 15, 8);
+            $table->double('lng', 15, 8);
         });
     }
 

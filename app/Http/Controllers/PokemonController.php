@@ -39,26 +39,33 @@ class PokemonController extends Controller
      */
     public function store(Request $request)
     {
-        $errCode = 0;
 
         if(empty($request->input('name')))
         {
             // Return error
-            $errCode = 1;
-            return response()->json(['errCode' => $errCode]);
+            return response()->json(['errCode' => 1]);
         }
 
         $poke = new Pokemon;
-        $poke->name = $request->input('name');
 
+        // Se setean los atributos a la clase del modelo.
+        $poke->name = $request->input('name');
+        $poke->trait = $request->input('trait');
+
+        $poke->image = $request->file('image');
+        
+        $poke->lat = $request->input('position.lat');
+        $poke->lng = $request->input('position.lng');
+
+        // Guardar. Si retorna false, hubo error
         if(!$poke->save())
         {
             // Return error
-            $errCode = 2;
-            return response()->json(['errCode' => $errCode]);
+            return response()->json(['errCode' => 2]);
         }
 
-        return response()->json(['errCode' => $errCode]);
+        // Success
+        return response()->json(['errCode' => 0]);
     }
 
     /**

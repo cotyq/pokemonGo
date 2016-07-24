@@ -6,23 +6,32 @@
 
 		var mapSrv = {};
 
-		mapSrv.map = {};
-		mapSrv.usrMarker = {};
+		/* Inicializa el mapa */
+		mapSrv.initialize = function(element, $rootScope){
 
-		mapSrv.initialize = function(element){
 			// Opciones iniciales del mapa. Se centra en una direccion cualquiera de Santa Fe.
 			var mapOptions = {
 		      	center: new google.maps.LatLng(-31.63, -60.7),
-		      	zoom: 14,
+		      	zoom: 16,
 		      	mapTypeId: google.maps.MapTypeId.ROADMAP
 		    };
 			
 			// Se crea el mapa
-		   	mapSrv.map = new google.maps.Map(element, mapOptions);
+		   	$rootScope.map = new google.maps.Map(element, mapOptions);
+		};
+
+		mapSrv.setMarker = function(position, $rootScope){
+      		// Se ubica un marker en esa posicion
+      		var marker = new google.maps.Marker({
+      			position: position,
+      			map: $rootScope.map,  
+      		});
+
+      		marker.setIcon(window.location.href+'img/Pokeball.png');
 		}
 
-
-		mapSrv.getCurrentPosition = function(){
+		/* Obtiene la posicion actual del usuario y pone un marker en el lugar */
+		mapSrv.getCurrentPosition = function($rootScope){
 
 			if (navigator.geolocation) 
 		  	{
@@ -37,13 +46,15 @@
 		      		};
 
 		    		// Se centra el mapa en la posicion actual del usuario
-		      		mapSrv.map.setCenter(latLng);
+		      		$rootScope.map.setCenter(latLng);
 
 		      		// Se ubica un marker en esa posicion
-		      		mapSrv.usrMarker = new google.maps.Marker({
+		      		$rootScope.usrMarker = new google.maps.Marker({
 		      			position: latLng,
-		      			map: mapSrv.map,  
+		      			map: $rootScope.map,  
 		      		});
+
+		      		console.log("Geolocalizacion. Hecho.");
 
 		    	}, 	function() {
 		      		console.log("No es posible geolocalizar");
@@ -57,14 +68,28 @@
 
 		};
 
+		/* Genera una posicion aleatoria en un circulo determinado por su centro y su radio (en metros) */
 		mapSrv.generateRandomPosition = function(center, raduis){
-			// 1 grado de latitud corresponde a 110880,33616502823 metros
 
-			var latLng = new google.maps.LatLng(-31.63, -60.7);
+			// Genero angulo random entre 0 y 2PI (rad)
+			var angle = Math.random() * 2 * Math.PI;
+
+			// Genero radio aleatorio entre 0 y el radio pasado como parametro
+			// 1 grado de latitud corresponde a 110880,33616502823 metros, por lo tanto se convierte el radio
+			var rad = Math.random() * (raduis / 110880.33616502823);
+
+			// Desplazamiento en metros que tendra la nueva posicion con respecto al centro
+			var despLat = Math.cos(angle) * rad;
+			var despLng = Math.sin(angle) * rad;
+
+			// Se crea la nueva posicion con los desplazamientos correspondientes
+			var latLng = {
+        		lat: center.getPosition().lat() + despLat,
+        		lng: center.getPosition().lng() + despLng
+      		};
+
 			return latLng;
 		};
-
-
 
 		return mapSrv;
 

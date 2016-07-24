@@ -2,10 +2,14 @@
 
 	var app = angular.module('map-controllers', []);
 
-	app.controller('MapController', ['$http', '$scope', 'map', function($http, $scope, map){
+	app.controller('MapController', ['$http', '$rootScope', 'map', function($http, $rootScope, map){
 
-		map.initialize(document.getElementById("map_canvas"));
-		map.getCurrentPosition();
+		$rootScope.map = {};
+		$rootScope.usrMarker = {};
+
+		map.initialize(document.getElementById("map_canvas"), $rootScope);
+
+		map.getCurrentPosition($rootScope);
 
 	}]);
 

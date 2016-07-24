@@ -18,6 +18,14 @@
 		<!-- Map -->		 
 	 	<div id="map_canvas" ng-controller="MapController as map">
 	 	</div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg" id="create-btn" data-toggle="modal" data-target="#createModal">
+          Cargar Pokémon
+        </button>
+
+        <!-- Modal -->
+        @include('create')
 	
 
     <!-- GMaps -->
@@ -30,6 +38,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>  
 
     {!! Html::script('js/app.js') !!}
+    {!! Html::script('js/file.drct.js') !!}
     {!! Html::script('js/map.ctrl.js') !!}
     {!! Html::script('js/map.srv.js') !!}
     {!! Html::script('js/pokemon.ctrl.js') !!}
