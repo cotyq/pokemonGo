@@ -19,7 +19,22 @@ body {
 
 #create-btn{
 	position: fixed;
-	bottom: 50px;
+	bottom: 20px;
 	right: 50px;
 	z-index: 3;
+}
+
+#appLogo{
+	position: fixed;
+	width: 180px;
+	height: 50px;
+	top: 10px;
+	left: 10px;
+
+	background-image: url("../img/logoPoke.png");
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: contain;
+
+	z-index: 1;
 }

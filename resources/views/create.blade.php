@@ -10,12 +10,12 @@
         <form name="createForm">
           <div class="form-group">
             <label>Nombre (requerido)</label>
-            <input type="text" class="form-control" placeholder="Nombre" ng-model="name" required>
+            <input type="text" class="form-control" placeholder="Nombre" ng-model="name" maxlength="50" required>
           </div>
 
           <div class="form-group">
             <label for="imgInputFile">Imagen</label>
-            <input type="file" id="imgInputFile" file-model="image">
+            <input type="file" id="imgInputFile" file-model="image" accept="image/*">
           </div>
 
           <div class="form-group">
@@ -26,13 +26,16 @@
           </div>
 
           <div class="alert alert-success" role="alert" ng-show="pokemonCtrl.msg == 1">
-            Pokemon guardado correctamente.
+            Pokémon guardado correctamente.
           </div>
           <div class="alert alert-danger" role="alert" ng-show="pokemonCtrl.msg == 2">
             Ha ocurrido un error.
           </div>          
           <div class="alert alert-danger" role="alert" ng-show="pokemonCtrl.msg == 3">
             Debe ingresar el nombre.
+          </div>
+          <div class="alert alert-danger" role="alert" ng-show="pokemonCtrl.msg == 4">
+            No es posible guardar debido a que no se encuentra su ubicación actual.
           </div>
         </form>
 

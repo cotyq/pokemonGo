@@ -12,6 +12,11 @@
 		this.create = function (){
 			this.msg = 0; 
 
+			if(jQuery.isEmptyObject($rootScope.usrMarker)){
+				this.msg = 4;
+				return;
+			}
+
 			// Si no ingreso el nombre, muestra el mensaje de error
 			if($scope.name == "" || $scope.name == undefined){
 				this.msg = 3;
@@ -33,7 +38,7 @@
 				//Succesful response
 				if(!response.data.errCode)
 				{
-					map.setMarker(newPoke.position, $rootScope);
+					map.setPokemonMarker(newPoke, $rootScope);
 					ctrl.msg = 1; 
 					ctrl.resetFields();
 				}

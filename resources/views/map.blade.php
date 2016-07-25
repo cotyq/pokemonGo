@@ -13,13 +13,14 @@
 	</head>
     <body>
      
-        <div class="nombreApp"></div>
-     
+        <!-- Logo de la app -->
+        <div id="appLogo"></div>
+
 		<!-- Map -->		 
-	 	<div id="map_canvas" ng-controller="MapController as map">
+	 	<div id="map_canvas" ng-controller="MapController as mapCtrl">
 	 	</div>
 
-        <!-- Button trigger modal -->
+        <!-- Boton para cargar Pokemon (dispara el modal) -->
         <button type="button" class="btn btn-primary btn-lg" id="create-btn" data-toggle="modal" data-target="#createModal">
           Cargar Pokémon
         </button>

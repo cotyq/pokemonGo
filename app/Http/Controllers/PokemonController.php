@@ -28,7 +28,7 @@ class PokemonController extends Controller
      */
     public function create()
     {
-        return \View::make('create');
+        //
     }
 
     /**
@@ -80,6 +80,17 @@ class PokemonController extends Controller
     }
 
     /**
+     * Display all resources.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showAll()
+    {
+        $pokemons = Pokemon::all();
+        return response()->json(['pokemons' => $pokemons]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -112,4 +123,5 @@ class PokemonController extends Controller
     {
         //
     }
+
 }

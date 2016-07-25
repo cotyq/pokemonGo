@@ -12,4 +12,5 @@
 */
 
 
-Route::resource('/', 'PokemonController');
+Route::resource('/', 'PokemonController', ['only' => ['index', 'store']]);
+Route::get('/getAll', 'PokemonController@showAll');

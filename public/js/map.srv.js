@@ -13,20 +13,38 @@
 			var mapOptions = {
 		      	center: new google.maps.LatLng(-31.63, -60.7),
 		      	zoom: 16,
-		      	mapTypeId: google.maps.MapTypeId.ROADMAP
+		      	mapTypeId: google.maps.MapTypeId.ROADMAP,
+		      	mapTypeControlOptions: {
+			        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+			        position: google.maps.ControlPosition.RIGHT_TOP
+			    },
 		    };
 			
 			// Se crea el mapa
 		   	$rootScope.map = new google.maps.Map(element, mapOptions);
 		};
 
-		mapSrv.setMarker = function(position, $rootScope){
-      		// Se ubica un marker en esa posicion
+		/* Setea un marker en el mapa, correspondiente al pokemon que se pasa como parametro. */
+		mapSrv.setPokemonMarker = function(pokemon, $rootScope){
+      		
+      		// Se ubica el marker en la posicion
       		var marker = new google.maps.Marker({
-      			position: position,
+      			position: pokemon.position,
       			map: $rootScope.map,  
       		});
 
+
+      		// Infowindow (ventana informativa)
+  		  	var infowindow = new google.maps.InfoWindow({
+		    	content: '<h4>' + pokemon.name + '</h4>'
+		  	});
+		  	
+		  	// Al hacer click en el marker se muestra la informacion
+		  	marker.addListener('click', function() {
+    			infowindow.open($rootScope.map, marker);
+  			});
+
+		  	// Icono del marker
       		marker.setIcon(window.location.href+'img/Pokeball.png');
 		}
 
